@@ -1,0 +1,68 @@
+JAVA
+
+Em java, todo código deve estar dentro de uma classe(class).
+
+		ex.: public class Main {...}
+
+	OBS.: A classe deve ter o MESMO nome do arquivo em que ela está,
+	      e também é obrigatório ter o 'public' antes de declarar a
+	      classe. Depois podemos criar outras classes, poreém é 
+	      obrigatório que ao menos uma das classes tenha está 
+	      configuração.
+
+Para criar uma variável, em Java é necessário declarar o TIPO(E por isso
+que é uma linguagem fortenmente tipada.), e após isto a variável não 
+poderá receber nenhum valor de um TIPO diferente, como 'string' por 
+exemplo.
+
+	ex.: int minhaIdade = 25;
+	
+	Para criar uma variável com valor INTEIRO.
+
+Também podemos criar uma váriavel utilizando a sintaxe 'var', para que o
+próprio JAVA denomine qual o seu tipo. Neste caso o java vai INFERIR o 
+tipo da variável.
+
+	ex.: var nome = 'Anderson';
+
+
+TIPOS PRIMITIVOS
+
+Em Java uma váriavel pode ter vários tipos primitivos diferentes para o 
+mesmo tipo de variável, dependendo do seu TAMANHO/COMPRIMENTO. 
+Por exemplo:
+
+INTEIROS:
+
+	* byte => 8 bits => -128 a 127
+
+	* short => 16 bits => -32.768 a 32.767
+
+	* int => 32 bits => -2.147.483.648 a 2.147.483.647
+
+	* long => 64 bits => -9.233.372.03...(nescessário um 'L' no fim)
+
+		ex: long l = 100000000L;
+
+DECIMAIS:
+
+	* float => 32 bits => precisão simples(necessário um 'f' no fim)
+
+		ex.: float f = 10.5f;
+
+	* double = 64 bits => precisão dupla(para numeros muito longos).
+
+STRINGS:
+
+	* String => representar palavras e frases => "" (ASPAS DUPLAS).
+
+	* char => representar um unico caractere => '' (ASPAS SIMPLES).
+
+BOOLEANOS:
+
+	* boolean b = true => verdadeiro.
+	
+	* boolean b = false => falso.
+
+
+
