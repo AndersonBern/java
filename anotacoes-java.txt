@@ -65,4 +65,228 @@ BOOLEANOS:
 	* boolean b = false => falso.
 
 
+Primeiros passos para codar:
+
+Dentro da classe principal é necessário uma assinatura do método 
+principal, o ponto de entrada de um programa Java executável. Ele 
+define como a máquina virtual Java (JVM) inicia a execução do programa. 
+
+	ex.: public class Main {
+    		public static void main(String[] args) {...}
+	     }
+
+	Isto define onde a JVM vai iniciar a execução do programa.
+
+	* public: Indica que o método é acessível de qualquer lugar.
+
+	* static: Significa que o método pertence à classe e não a uma 
+		  instância específica dela.
+
+	* void: Indica que o método não retorna nenhum valor.
+
+	* main: É o nome do método, e é o método especial que a JVM 
+		procura para iniciar a execução do programa. 
+
+	* String[] args: Define um array de strings chamado args como 
+			 parâmetro do método.
+
+
+PRINT
+
+Para printar algo no terminal é necessário o método:
+
+	ex.: System.out.println("Hello, world!");
+
+Ou:
+
+	ex.: System.out.print("Hello, world!")
+
+O primeiro adiciona uma nova linha após a impressão, enquanto o segundo 
+mantém o cursor na mesma linha.
+
+
+CONDICIONAIS
+
+if/ else if / else, basicamente igual a outras linguagens. por exemplo:
+
+	* if (bool) {...} 
+
+		SE bool for TRUE...
+
+	* else if (n < 1) {...}
+
+		SE NÃO SE...
+
+	* else {...}
+
+		SE NÃO...
+
+
+ARRAYS
+
+Para declarar um array em JAVA utilizamos a seguinte sintaxe:
+
+	ex.: int[] listaDeInteiros = {1, 2, 3 ,4 ,5};
+
+	* PRIMEIRO você indica que é um array de INTEIROS: int[] ;
+
+	* SEGUNDO: Você nomeia o array: listaDeInteiros ;
+
+	* TERCEIRO: Você atribui um valor ao array: {1, 2, 3 ,4 ,5} ;
+
+
+Você também pode atribuir apenas o COMPRIMENTO do ARRAY:
+
+	ex.: int[] listaDeInteiros = new int[5];
+
+	Vai criar uma array de comprimento 5, porém sem nenhum valor 
+	atribuído a nenhuma posição.
+
+
+  Métodos úteis:
+
+	- NomeDoArray.length : Para pegar o COMPRIMENTO de uma array.
+
+	- NomeDoArrayList.size() : Para pegar o tamanho de um ArrayList.
+
+
+ARRAYLIST
+
+Um array, basicamente, serve para armazenar uma coleção de valores do 
+mesmo tipo. E em JAVA, não podemos modificar o comprimento de um array, 
+sem utilizar a classe ARRAYLIST.
+
+	ex.: ArrayList<String> nomes = new ArrayList<>();
+
+		* PRIMEIRO: Declara uma variavel de ArrayList do tipo 
+			    String: ArrayList<String> ;
+
+		* SEGUNDO: Nomeia o ArrayList: nomes ;
+
+		* TERCEIRO: Atribui a instancia como um NOVO ArrayList:
+			    new ArrayList<>() ;
+
+	OBS.: Lembre-se de verificar se o IntelliJ importou a classe 
+	      'ArrayList'. Ex.: import java.util.ArrayList;
+
+Para ADICIONAR valores ao Arraylist:
+
+	ex.: nomes.add("Bernardo");
+
+		* Assim adicionando um valor do tipo STRING ao ArrayList
+		  'nomes'.
+
+Para REMOVER valores ao ArrayList:
+
+	ex.: nomes.remove(0);
+
+		* Vai remover o valor do indice 0.
+
+	ex.: nomes.remove("Bernardo");
+
+		* Vai remover o valor "Bernardo".
+
+
+LOOPS
+
+* FOR:
+
+As estruturas de repetição em JAVA, como FOR é muito semelhante ao de 
+diversas linguagens, segue o exemplo:
+
+	ex.: for (int i = 0; i < nomes.size(); i++) {...}
+
+		* PRIMEIRO: A variavel de interação => int i = 0 ;
+
+		* SEGUNDO: A condição => nomes.size() ;
+
+		* TERCEIRO: O incremento => i++ ;
+
+
+Existe um FOR especial para percorrer todo um ArrayList, segue o exemplo:
+
+	ex.: for (String nome : nomes) {
+            	System.out.println(nome);
+             }
+
+		* PRIMEIRO: A variavel de interação => String nome ;
+
+		* SEGUNDO: O for-each, o interador => : ;
+
+		* TERCEIRO: O nosso ArrayList => nomes ;
+
+* WHILE:
+
+As estruturas de repetição em JAVA, como WHILE é muito semelhante ao de 
+diversas linguagens, segue o exemplo:
+
+	ex.: while(contador < 5){...}
+
+		* ENQUANTO a condição não for sanada, o loop vai 
+		  continuar.
+
+	ex.: int contador = 0;
+             while(contador < 5){
+            	System.out.println("Estou no while!");
+            	contador++;
+             }
+
+		* ENQUANTO o contador for menor que 5, vai printar a 
+		  mensagem e incrementar 1.
+
+
+CASTING
+
+Casting é o processo de converter um tipo de dado para outro. Pode ser 
+implícito (automático) ou explícito (requerendo um "cast" no código). 
+Existem dois tipos principais de casting: casting de tipos primitivos e 
+casting de objetos. 
+
+	* EXPLICITO:
+	
+	   - Para converter um DOUBLE em INT:
+
+		ex.: double meuDouble = 3.0;
+        	     int meuInt = (int) meuDouble; 
+
+			* Declaro uma varivel tipo DOUBLE de valor '3.0'.
+
+			* Declaro uma nova variavel tipo INT que recebe o 
+			  valor da variavel do tipo DOUBLE convertida em
+			  INT: (int) meuDouble.
+
+	   - Para converter uma STRING em INT
+		
+		ex.: String minhaString = "10";
+        	     int meuInt3 = Integer.parseInt(minhaString);
+
+			* Declaro uma variavel tipo STRING de valor "10".	
+
+			* Declaro uma variavel do tipo INT que recebe o 
+			  valor da variavel do tipo STRING e converte em
+			  INT utilizando a classe Integer: 
+				- Integer.parseInt(minhaString);
+
+	   - Para converter um INT em STRING:
+
+		ex.: String minhaString2 = String.valueOf(meuInt3);
+		
+			* Declaro uma variavel do tipo STRING que recebe
+			  o valor da variavel do tipo INT e converte em
+			  STRING utilizando a classe String: 
+				- String.valueOf(meuInt3);
+
+	
+	* IMPLICITO:
+
+	   - Para converter um INT em DOUBLE:
+
+		ex.: int meuInt2 = 5;
+        	     double meuDouble2 = meuInt2;
+
+			* O JAVA converte a variavel automaticamente de
+			  INT para DOUBLE.
+
+
+ 
 
