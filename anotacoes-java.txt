@@ -289,4 +289,186 @@ casting de objetos.
 
 
  
+CLASSES
+
+Uma classe é um modelo ou "plano" para CRIAR OBJETOS, representando um 
+tipo de dado que contém atributos (variáveis) que definem o seu estado 
+e métodos (funções) que definem o seu comportamento.
+
+	ex.: class Carro {
+    		public Carro(){
+        		System.out.println("Carro criado!");
+    	  	}
+	     } 
+
+		* class Carro {...}: Criamos uma classe.
+
+		* public Carro(){...}: Criamos o CONSTRUTOR, que são 
+			métodos especiais usados para criar e inicializar
+			objetos de uma classe. O construtor tem o mesmo 
+			nome da classe e não tem tipo de retorno.
+
+	PARA CHAMAR A CLASSE:
+
+		ex.: Carro meuCarro = new Carro();
+
+		OBS.: A chamada OBRIGATÓRIAMENTE deve estar dentro da 
+		      classe PRINCIPAL(que nomeia o arquivo .java). 
+
+
+   - ATRIBUTOS de uma classe:
+
+	São as variáveis que esta classe possui e armazenam os dados do 
+	objeto, segue o exemplo:
+
+		ex.: class Carro {
+			double preco;
+			String cor;
+			
+			public Carro(){...}
+
+
+   - MÉTODOS(funções)
+
+	 São funções definidas na classe que realizam ações específicas.
+	 Segue o exemplo:
+
+		ex.: class Carro {
+			double preco;
+			String cor;
+			
+			public Carro(){...}
+
+			public double getPreco() {
+        			return preco;
+    			}
+
+		* É uma função que pode ou não ter retorno(void) e faz
+		  uma ação específicas, que no caso foi pegar o preço.
+
+
+
+  OUTRO EXEMPLO:
+
+	ex.: class Carro {
+    		String modelo;
+
+    		public Carro(String modelo){
+            		this.modelo = modelo;
+    		}
+
+		public void acelerar() {
+        		System.out.println("Acelerar o " + modelo)
+    		}
+	     }
+
+	EXPLICAÇÃO: 
+
+		1- class Carro {...} : Criação da classe;
+
+		2- String modelo : Atibuto da classe;
+
+		3- public Carro(String modelo){..}: Construtor da classe,
+				que recebe como parametro o ATRIBUTO da
+				classe;
+
+		4- this.modelo = modelo : A INSTANCIA atual do objeto
+					  recebe o valor da variavel
+					  'modelo'. 
+					  O ATRIBUTO 'modelo' do objeto
+					  recebe o valor da variável 
+					  'modelo';
+
+		5- public void acelerar() {...} : O método(função) que 
+				retorna NADA(void), printa a mensagem.
+
+
+
+MODIFICADORES DE ACESSO
+
+Em Java, modificadores de acesso são palavras-chave usadas para definir 
+a visibilidade de classes, métodos e atributos (variáveis dentro de uma 
+classe). Eles controlam quais outras classes e partes do código podem 
+acessar e interagir com esses elementos. 
+
+	1. public: Membros marcados como public podem ser acessados de 
+	   	   qualquer lugar, por qualquer classe, 
+		   independentemente do pacote ou hierarquia. 
+
+	2. private: Membros private só podem ser acessados dentro da 
+	   	    própria classe onde foram declarados. 
+
+	3. protected: Membros protected podem ser acessados dentro da 
+	 	      própria classe, por classes do mesmo pacote e por 
+		      subclasses (classes que herdam da classe original). 
+
+	4. default (sem modificador): Quando nenhum modificador de 
+				      acesso é especificado, o membro 
+				      tem acesso padrão, que é restrito 
+				      ao pacote onde a classe está 
+				      definida. 
+
+
+
+INTERFACES
+
+Uma interface define um "contrato" de métodos que as classes devem 
+implementar, fornecendo um modelo de como os objetos devem se comportar 
+sem detalhar sua implementação. Ela pode conter métodos abstratos 
+(sem corpo), métodos padrão (com implementação), métodos estáticos e 
+constantes. Interfaces promovem a abstração, permitem a polimorfismo e 
+habilitam a "herança múltipla" ao permitir que uma classe implemente 
+várias interfaces simultaneamente.
+
+Criamos um novo arquivo de INTERFACE, segue o exemplo: 
+
+	ex.: public interface Carros {
+    		void acelerador();
+
+    		void freio();
+	     }
+
+	* Cria apenas a 'CASCA' dos metodos que um objeto deve seguir.
+
+
+PARA IMPLEMENTAR UMA INTERFACE EM UMA CLASSE:
+Para implementar os metodos automaticamente basta passar o mouse por 
+cima do nome da classe e clicar em 'implements methods'. 
+
+	ex.: public class Palio implements Carros{
+
+    		@Override
+    		public void acelerador() {
+			...
+    		}
+
+    		@Override
+    		public void freio() {
+			...
+    		}
+
+	* EM UMA NOVA CLASSE(outro arquivo) implementamos a INTERFACE
+	  'Carros' e seus metodos.
+
+	* @Override é uma anotação usada para indicar que um método de 
+	  uma classe filha está sobrescrevendo um método com a mesma 
+	  assinatura (nome, tipos de parâmetros e tipo de retorno) da 
+	  classe pai (superclasse).
+
+
+PARA CHAMAR A INTERFACE E CRIAR NOVOS OBJETOS:
+Na classe PRINCIPAL...
+
+	ex.: Carros meuCarro = new Palio();
+
+		* Carros : É a interface;
+	
+		* meuCarro : É a variavel do tipo 'Carros';
+
+		* new Palio() : É o novo objeto da classe onde a 
+				interface foi implementada.
+
+
+
+
 
