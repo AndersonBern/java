@@ -466,7 +466,134 @@ Na classe PRINCIPAL...
 		* meuCarro : É a variavel do tipo 'Carros';
 
 		* new Palio() : É o novo objeto da classe onde a 
-				interface foi implementada.
+				interface foi implementada. 
+
+
+CLASSES ABSTRATAS 
+
+Uma classe abstrata é uma classe que não pode ser instanciada 
+diretamente, servindo como um modelo para outras classes. Ela pode 
+conter métodos abstratos (sem implementação) e métodos concretos 
+(com implementação). O principal objetivo é fornecer um esqueleto comum 
+para as subclasses.
+
+NÃO é possivel criar objetos diretamente de uma classe abstrata. Segue o
+exemplo:
+
+	ex.: public abstract class SerVivo {
+    		public abstract void Respirar();
+    
+    		public void Dormir() {
+        		System.out.println("Dormindo...");
+    		}
+	     }
+
+	1- Criamos a classe abstrata "SerVivo"(em um novo arquivo);	
+
+	2- Criamos SUBCLASSES, sem implementação ou com implementação.
+
+
+HERANÇA 
+
+A herança é um conceito de Programação Orientada a Objetos (POO) que 
+permite que uma classe (a subclasse) herde características e 
+comportamentos (atributos e métodos) de outra classe (a superclasse).
+
+Por exemplo, em JAVA para que uma classe HERDE atributos e metodos de 
+outra classe, utilizamos a PALAVRA-CHAVE 'extends'.
+
+	ex.: public class Humano extends SerVivo {...}
+
+	* A classe 'Humano' HERDA caracteristicas da classe 'SerVivo'.
+
+	OBS.: Se houver algum método sem implementação na classe PAI,
+	      você deverá implementar algo neste método na classe FILHO.
+
+
+Para chamar a classe abstrata e criar um novo objeto:
+Na classe PRINCIPAL...
+
+	ex.:  SerVivo meuSer = new Humano();
+
+OBS.: Sempre que uma classe HERDA caracteristicas de outra classe, esta 
+      classe se torna uma SUBCLASSE de sua classe PAI.
+      Uma classe só pode herdar caracteristicas de UMA classe PAI.
+
+
+Uma classe pode HERDAR de uma SUPERCLASSE(classe-pai) um metodo 
+CONSTRUTOR. Para acessar este metodo contrutor da superclasse na 
+classe-filho usamos a palavra chave 'super'.
+
+CONSTRUTOR da superclasse:
+
+	   * public abstract class SerVivo {
+
+    		protected int idade;
+
+    		public SerVivo(int idade){
+        		this.idade = idade;
+    		}
+	     }
+
+Para acessar este METODO CONSTRUTOR da superclasse na classe-filho 
+criamos um novo metodo e nele usamos a palavra chave 'super' e passamos
+o parametro entre os parenteses:
+
+	ex.: public class Humano extends SerVivo {
+
+    		public Humano(){
+        		super(42);
+    		}
+		...
+	     }
+
+
+
+
+POLIMORFISMO
+
+Polimorfismo significa "muitas formas" e permite que um objeto se 
+comporte de maneiras diferentes dependendo do contexto em que é usado. 
+Permite que você use a mesma INTERFACE para diferentes tipos de objetos,
+tornando o código mais flexível e reutilizável.
+
+Por exemplo: Eu tenho um PALIO(classe/objeto) e um GOL(classe/objeto). E
+	     os 2 são CARROS(interface).
+	     Um PALIO ACELERA(metodo) e FREIA(metodo) de uma forma,
+	     e o GOL de outra. Por tanto, podemos ter objetos do mesmo
+	     TIPO(interface), com comportamentos diferentes(metodos).
+
+
+TRATAMENTO DE EXCESSÕES
+
+O tratamento de exceções é um mecanismo para lidar com situações 
+inesperadas que podem ocorrer durante a execução de um programa, 
+evitando que o programa pare abruptamente. Ele envolve o uso de blocos 
+try, catch e finally para capturar e tratar erros, permitindo que o 
+programa continue a executar de forma controlada. 
+
+Por exemplo: Eu tenho um Carro quebrado(nulo), e eu peço para 
+	     ACELERAR(metodo) este carro, porém vai dar errado pois ele 
+	     está quebrado(NullPointerException).
+
+	ex.:  Carros carroQuebrado = null;
+
+        	try{
+            		carroQuebrado.acelerador();
+
+        	}catch (NullPointerException exception){
+            		System.out.println("Venda este carro. Ele não 
+			funciona!");
+        	}
+
+	1- Crio a variável 'carroQuebrado' do tipo 'Carros' com o valor
+	   NULO;
+
+	2- TENTO(try) acelerar o carro;
+
+	3- Se de o carro NÃO FUNCIONA(null) eu CAPTURO(catch) o erro
+	   e mando a mensagem "Venda este carro. Ele não funciona!"
+	
 
 
 

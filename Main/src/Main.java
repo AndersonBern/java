@@ -7,6 +7,18 @@ public class Main {
         meuCarro.acelerador();
         meuCarro2.acelerador();
 
+        SerVivo meuSer = new Humano();
+
+        meuSer.respirar();
+
+        Carros carroQuebrado = null;
+
+        try{
+            carroQuebrado.acelerador();
+        }catch (NullPointerException exception){
+            System.out.println("Venda este carro. Ele não funciona!");
+        }
+
     }
 
 }
