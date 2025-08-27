@@ -1,0 +1,125 @@
+PACKAGES
+
+Um pacote é um mecanismo para agrupar classes, interfaces e outros tipos
+relacionados em um único namespace. Isso serve para organizar o código,
+evitar conflitos de nomes, promover a reutilização e controlar o acesso
+a elementos.
+
+Para criar um pacote, basta clicar em cima da pasta 
+'src' -> new -> package. E pronto, pacote criado.
+A classe que estiver dentro do pacote, em sua primeira linha terá algo 
+como: 
+
+	ex.: package nomeDoPacote;
+
+OBS.: Para classes com atributos "protected", podem ser acessados desde
+      que sejam sub-classes da classe-PAI, mesmo que estejam em outro 
+      pacote.
+
+
+
+JAVA COLLECTIONS
+
+"Java Collections" referem-se ao Java Collections Framework (JCF), um 
+conjunto de interfaces e classes no pacote java.util que fornecem uma 
+arquitetura unificada para armazenar e manipular grupos de objetos. Elas
+permitem gerenciar dados de forma organizada, oferecendo estruturas como
+Listas(com elementos ordenados e duplicados), Conjunto(sem duplicados) e
+Mapas (pares chave-valor).
+
+Principais tipos de Collections:
+
+- List: Armazena uma sequência ordenada de elementos que podem incluir 
+	duplicados. 
+
+	ex.: List<String> list = new ArrayList<>();
+             list.add("Bernardo");
+             list.add("Anderson");
+             list.add("Bernardo");
+             list.add("Anderson");
+
+	- Para pegar um valor em um "List", é pelo indice:
+	
+	     * list.get(0);
+
+
+- Set: Representa uma coleção que não permite elementos duplicados e não
+       garante a ordem dos elementos.
+
+	ex.: Set<String> setDeStrings = new HashSet<>();
+             setDeStrings.add("Anderson");
+             setDeStrings.add("Bernardo");
+	
+	OBS.: Mesmo que eu tente adicionar um valor repetido, o set 
+	      NÃO vai armazenar o valor repetido.
+
+	- Para verificar um valor em um "Set":
+	
+	     * setDeStrings.contains("Bernardo");
+
+
+- Queue: Armazena elementos antes de serem processados e segue o 
+	 princípio FIFO (First-In, First-Out - primeiro a entrar, 
+	 primeiro a sair). 
+
+	ex.: Queue<String> queue = new LinkedList<>();
+             queue.add("Anderson");
+             queue.add("Bernardo");
+
+
+	- Para acessar o primeiro valor em um "Queue":
+
+	     * queue.poll();
+
+
+	OBS.: O "Queue" é uma FILA. Quando eu acesso um dado em um 
+	      "Queue", ele APAGA este valor, para que o proximo valor
+	      vá para a primeira posição da fila.
+
+		ex.: System.out.println("Queue: " + queue.poll());
+           	     System.out.println("Queue: " + queue);
+
+		1- Vai mostrar no terminal que o VALOR 
+		   ACESSADO(queue.poll) foi: "Anderson";
+
+		2- Vai mostrar no terminal a FILA(Queue): "Bernardo";
+		   pois o valor "Anderson" foi excluido.
+
+
+	- Também é possivel "Espiar" o primeiro valor da fila(Queue) sem 
+	que ele seja excluido:
+
+		* queue.peek();
+
+		- Vai espiar qual o primeiro valor da fila, e ele 
+		  permanacerá intacto, pois não houve ação nenhuma.
+
+
+	- Também é possivel REMOVER o primeiro valor da fila(Queue):
+
+		* queue.remove();
+
+		- A única diferença deste método para o "poll" é que
+		  se a fila estiver vazia, ele vai mostrar uma excessão
+		  (erro) no terminal. E o "poll" iria apenas mostrar a 
+		  fila vazia.
+             
+
+- Map: Armazena pares chave-valor, onde cada chave é única. 
+
+	ex.: Map<String, String> map = new HashMap<>();
+             map.put("nome", "Anderson");
+             map.put("sobrenome", "Bernardo");
+
+		* É como um OBJETO em JavaScript, ao declarar um "Map"
+		  indicamos o TIPO da CHAVE e depois o TIPO do VALOR.
+
+	Para pegar um valor em um "Map", é pelo indice:
+	
+	    * map.get(0);
+
+
+
+
+
+
