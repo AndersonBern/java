@@ -120,6 +120,160 @@ Principais tipos de Collections:
 
 
 
+GENERICS
+
+É um recurso da linguagem que permite criar componentes de código 
+(classes, interfaces e métodos) que podem operar em diferentes tipos de 
+dados de forma segura e reutilizável, sem a necessidade de casting 
+explícito.
+Seria como eu criar meu próprio TIPO. Por exemplo:
+
+	ex.: public class Pintura<MeuTipo> {...}
+    
+    	- Criei uma classe 'Pintura' do TIPO genérico, que eu criei.
+
+
+Utilizando este tipo genérico em métodos e atributos:	
+
+	ex.: public class Pintura<MeuTipo> {
+
+    		private List<MeuTipo> coisasQueVouPintar;
+
+		public void pintar(MeuTipo coisa) {
+        		this.coisasQueVouPintar.add(coisa);
+    		}
+
+	     }
+
+
+		1- Criei uma classe 'Pintura' do TIPO genérico;
+
+		2- Criei um ATRIBUTO 'coisasQueVouPintar' que será uma
+		   LISTA(List) do tipo genérico(MeuTipo);
+
+		3- Criei um MÉTODO 'pintar' que recebe como parametro
+		   uma coisa do tipo genérico(MeuTipo coisa).
+
+		4- E a lista do tipo genérico 'coisasQueVouPintar' vai
+		   adicionar esta 'coisa' do tipo genérico dentro dela.
+
+	* É como se eu tivesse uma oficina de pintura(Class Pintura),
+	  e eu tenho uma LISTA de coisas para pintar no 
+	  dia(coisasQueVouPintar). E não importa o
+	  tipo de coisa que ela é(Tipo genérico<MeuTipo>), se esta coisa
+	  estiver na lista eu vou pintar esta coisa. 
+
+
+
+RECORDS
+
+Records são uma nova forma de declarar classes. São tipos de dados 
+imutáveis, projetados para representar valores de forma mais concisa, 
+simplificando a criação de classes que atuam como recipientes de dados. 
+Records reduzem a verbosidade do código ao gerar automaticamente métodos
+como construtores, getters (métodos de acesso), equals(), hashCode() e 
+toString(), baseados nos campos declarados. 
+
+	ex.: public record Carro2(String modelo, String cor, int ano) {
+	     }
+
+	- Diferentes das CLASSES, nos RECORDS colocamos os atributos 
+	  dentro dos parenteses '(...)' e o JAVA vai gerar todos os 
+	  métodos necessários para estes dados. As chaves '{}' são só
+	  por questão de sintaxe, mas elas não recebem dados.
+
+
+
+STREAM API
+
+É um recurso que permite o processamento declarativo e funcional de 
+coleções de dados, como listas e arrays. Em vez de usar loops 
+tradicionais, você define operações de agregação como filtrar, mapear e 
+reduzir, deixando o controle de fluxo para a própria API e focando na 
+lógica de negócio. Isso resulta em código mais legível, conciso e 
+produtivo, especialmente ao lidar com grandes conjuntos de dados. 
+
+	ex.: list.stream()
+
+	- Assim transformamos a lista chamada 'list' em uma STREAM API.
+
+OBS.: TEMOS QUE TER EM MENTE que sempre que transformarmos uma estrutura
+      de dados em uma STREAM API ela não será mais uma estrutura de 
+      dados. SE QUISERMOS QUE ELA VOLTE A SER UMA ESTRUTURA DE DADOS é
+      necessário transformar ela DEVOLTA.
+
+	ex.: List<String> Andersons = list.stream() ... .toList();
+
+	- Transformou a 'list' em uma LISTA novamente com o método:
+	  '.toList()'.
+
+TIPOS DE OPERAÇÕES COM STREAM API:
+
+   * .filter() :
+
+	ex.: List<String> Andersons = list.stream().filter(nome -> 
+		nome.startsWith("Anderson")).toList();
+
+	EXPLICAÇÃO:
+
+	1- List<String> Andersons : Criei uma lista do tipo String 
+				    chamada 'Andersons';
+	
+	2- list.stream() : transformei a lista chamada 'list' em uma 
+			   STREAM API.
+
+	3- .filter(nome -> nome.startsWith("Anderson")) : 
+		Utilizamos o método 'filter()'. Vai filtrar todos os 
+		elementos que começar com(startsWith) 'Anderson'.
+		* 'nome -> nome...' é só um nome que vamos dar para cada
+		elemento.
+
+	4- .toList(): Transformei a 'list' em uma LISTA novamente.
+
+
+   * .map() :
+
+	ex.: List<String> Andersons = list.stream()
+		.map(String::toUpperCase).toList();
+
+	EXPLICAÇÃO:
+
+	1- List<String> Andersons : Criei uma lista do tipo String 
+				    chamada 'Andersons';
+	
+	2- list.stream() : transformei a lista chamada 'list' em uma 
+			   STREAM API.
+
+	3- .map(String::toUpperCase): Transforma CADA ELEMENTO String
+				      da lista em MAIUSCULAS(UpperCase).
+
+	4- .toList(): Transformei a 'list' em uma LISTA novamente.
+
+
+
+   * .reduce() :
+
+	ex.: List<Integer> numeros = new ArrayList<>();
+        	numeros.add(1);
+        	...
+        	numeros.add(5);
+
+	     int soma = numeros.stream()
+                .reduce(0, Integer::sum);
+
+	EXPLICAÇÃO:
+
+	1- Criei uma lista de inteiros 'numeros' que recebeu valores de 
+	   1 à 5;
+
+	2- int soma : Criei uma variavel chamada 'soma';
+
+	3- numeros.stream() : Transformei a lista chamada 'numeros' em 
+			      uma STREAM API.
+
+	4- .reduce(0, Integer::sum) : Inicia a operação em 0.
+				      Pega CADA ELEMENTO Inteiro(Integer)
+				      e soma(sum).
 
 
 
