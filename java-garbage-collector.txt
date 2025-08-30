@@ -1,0 +1,112 @@
+GARBAGE COLLECTOR
+
+O Garbage Collector é um mecanismo automático de gerenciamento de 
+memória que identifica e recupera espaço na "heap" (memória do programa)
+ocupado por objetos que não estão mais sendo utilizados pela aplicação. 
+Em vez de um desenvolvedor precisar alocar e desalocar memória 
+manualmente, como em outras linguagens, o GC faz essa limpeza 
+automaticamente, prevenindo vazamentos de memória, otimizando o uso do 
+espaço e permitindo que os desenvolvedores se concentrem na lógica de 
+negócios. 
+
+DIFERENÇA ENTRE MEMÓRIA STACK E HEAP
+
+* STACK(pilha):
+
+	- É uma área de memória usada para gerenciar dados temporários, 
+	  como variáveis locais e endereços de retorno de funções, em 
+	  um programa. Ela opera no princípio LIFO (Last In, First Out –
+	  último a entrar, primeiro a sair), semelhante a uma pilha de 
+	  pratos. A alocação e a desalocação de memória na stack são 
+	  automáticas e rápidas, pois os dados são descartados assim que
+	  a função que os criou termina. 
+
+		ELA ARMAZENA: 
+			
+			* Pilha de chamadas dos nossos métodos;
+			* Informações de Threads que estão rodadando;
+			* Variaveis primitivas locais;
+
+	- Quando o método finaliza sua execução todas estas informações
+	  são limpas da STACK. Porém, todos os objetos que o método 
+	  manipulava são armazenados na memória HEAP.
+
+
+* HEAP:
+
+	- É uma área flexível e dinâmica para alocação de memória, usada
+	  principalmente para armazenar objetos e estruturas de dados 
+	  grandes que são criados e liberados durante o tempo de 
+	  execução de um programa, em contraste com a memória stack, que
+	  tem um tamanho fixo e gerenciamento automático. A alocação e 
+	  desalocação no heap são mais lentas, mas essenciais para 
+	  gerenciar dados complexos que não têm um tamanho conhecido em 
+	  tempo de compilação.
+
+		ELA ARMAZENA:
+
+			* Todos os objetos que vamos manipular no nosso 
+		 	  programa;
+
+			* Instancias de bibliotecas, arrays, etc;
+
+
+
+A GROSSO MODO:
+
+A memória STACK armazena todas a variáveis e referencias
+aos objetos que estão em execução. E quando o método termina sua 
+execução, a memória STACK é limpa automaticamente. 
+
+A memória HEAP armazena todos os objetos e instancias que foram 
+referenciadas pelo método, e continuam exinstindo mesmo após o fim da 
+execução do método.
+
+O GARBAGE COLLECTOR vai agir como um GARI na memória HEAP, e vai 
+limpar todos os objetos que não estão mais sendo referenciados pela 
+STACK ou pelos próprios objetos e instancias existentes na HEAP.
+
+
+
+TIPOS DE GARBAGE COLLECTOR EM JAVA:
+
+* Serial GC:
+
+	- Usa apenas 1 Thread;
+	- Pausa a aplicação durante a limpeza;
+	- Não recomendado para APPs que exigem resposta rápida;
+	- Recomendado para aplicações leves e/ou com pouca memória
+	  disponível.
+
+* Parallel GC:
+
+	- Usa várias Threads;
+	- Executa a limpeza durante a execução da aplicação;
+	- Não recomendado em sistemas que exigem baixa latencia(lag), e
+	  exige muitos recursos da máquina;
+	- Recomendado para multiplos processadores ou quando usar o
+	  processador ao máximo não é um problema.
+
+* G1(garbage first) GC:
+
+	- Divide a memória em regiões menores;
+	- Realiza a limpeza nas regiões lotadas primeiro;
+	- É o GC padrão do JAVA desde o java 9;
+	- Não recomendado para pouca memória disponível, e consome mais
+	  CPU;
+	- Recomendado para aplicações de médio e grande porte; 
+
+* Z GC:
+
+	- Escolha ideal para sistemas críticos;
+	- ultra baixa latência;
+	- Não recomendado para APPs leves, maior uso da CPU;
+	- Recomendado para memória muito grande(50GB+), servidores de 
+	  jogos, sistemas bancários, etc.
+
+* Shenondoah:
+
+	- Segue a mesma ideia do Z GC;
+	- Criado pela RED HAT, suporte ao OpenJDK da RED HAT;
+	- Não recomendado para pequenos Apps, alto uso de CPU, menos
+	  eficiente em memória muito grande(50GB+);
