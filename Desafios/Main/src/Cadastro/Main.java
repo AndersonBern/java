@@ -1,5 +1,6 @@
+package Cadastro;
+
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -30,11 +31,13 @@ public class Main {
                     System.out.print("Digite um nome: ");
                     nome = sc.next();
                     list.add(nome);
+                    System.out.println("O nome: [" + nome + "] foi adicionado!");
                     break;
 
                 case "2":
-                    for(int i=0; i < list.size(); i++ ) {
-                        System.out.println("- " + list.get(i));
+                    System.out.println("Nomes na lista:");
+                    for (String n : list) {
+                        System.out.println("- " + n);
                     }
                     break;
 
@@ -69,8 +72,7 @@ public class Main {
                         }
                         else {
                             System.out.println("O nome: [" + nome + "] NÃO existe na lista!");
-                            System.out.print("Digite o nome que deseja buscar: ");
-                            nome = sc.next();
+                           break;
                         }
                     }
                     break;
@@ -84,6 +86,7 @@ public class Main {
             }
 
         }
+        sc.close();
     }
 
 
