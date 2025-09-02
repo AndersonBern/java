@@ -1,20 +1,39 @@
 package ListaDeContatos;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
 
+        LocalDateTime updatedAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+
         ArrayList<Contato> contatos = new ArrayList<>();
+        contatos.add(new Contato("Anderson Bernardo", "9999-9999", "Anderson@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato("Andre Bruno", "9899-9899", "Andre@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato("Juan Bernardo", "8899-8899", "Juan@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato("Maria Eduarda", "8888-8888", "Maria@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato("Elisangela Batista", "8877-8877", "Elisangela@hotmail.com", createdAt, updatedAt ));
+
+        List<NomeEmail> lista1 = contatos.stream()
+                .map(contato -> new NomeEmail(contato.getNome(), contato.getEmail())).toList();
+
+        for(NomeEmail contato : lista1){
+            System.out.println(contato);
+        }
 
         Scanner sc = new Scanner(System.in);
         Scanner cadastro = new Scanner(System.in);
 
         String opcao = "";
 
-        while(!opcao.equals("0")) {
+
+        /*while(!opcao.equals("0")) {
 
             System.out.println(
                     "\n" + "[1] Adicionar contato\n" +
@@ -40,7 +59,7 @@ public class Main {
                     System.out.print("Digite o E-mail: ");
                     String email = cadastro.nextLine();
 
-                    contatos.add(new Contato(nome, telefone, email));
+                    contatos.add(new Contato(nome, telefone, email, createdAt, updatedAt));
                     System.out.println("Contato adicionado!");
                     break;
 
@@ -51,6 +70,8 @@ public class Main {
                         System.out.println("Nome: " + c.nome);
                         System.out.println("Telefone: " + c.telefone);
                         System.out.println("Email: " + c.email);
+                        System.out.println("CreatedAt: " + c.createdAt);
+                        System.out.println("UpdatedAt: " + c.updatedAt);
                     }
                     break;
 
@@ -80,6 +101,9 @@ public class Main {
                             System.out.println("Nome: " + listar.nome);
                             System.out.println("Telefone: " + listar.telefone);
                             System.out.println("E-mail: " + listar.email);
+                            System.out.println("CreatedAt: " + listar.createdAt);
+                            System.out.println("UpdatedAt: " + listar.updatedAt);
+
                         }
                         else{
                             System.out.println("Contato não encontrado! Nome/Telefone: [" + dado + "]");
@@ -103,6 +127,7 @@ public class Main {
                             System.out.print("E-mail: ");
                             email = cadastro.nextLine();
                             listar.email = email;
+                            listar.updatedAt = LocalDateTime.now();
 
                             System.out.println("Contato atualizado!");
                         }
@@ -120,6 +145,6 @@ public class Main {
 
         }
         sc.close();
-        cadastro.close();
+        cadastro.close();*/
     }
 }
