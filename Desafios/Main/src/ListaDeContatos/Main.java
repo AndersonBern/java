@@ -14,16 +14,33 @@ public class Main {
         LocalDateTime createdAt = LocalDateTime.now();
 
         ArrayList<Contato> contatos = new ArrayList<>();
-        contatos.add(new Contato("Anderson Bernardo", "9999-9999", "Anderson@hotmail.com", createdAt, updatedAt ));
-        contatos.add(new Contato("Andre Bruno", "9899-9899", "Andre@hotmail.com", createdAt, updatedAt ));
-        contatos.add(new Contato("Juan Bernardo", "8899-8899", "Juan@hotmail.com", createdAt, updatedAt ));
-        contatos.add(new Contato("Maria Eduarda", "8888-8888", "Maria@hotmail.com", createdAt, updatedAt ));
-        contatos.add(new Contato("Elisangela Batista", "8877-8877", "Elisangela@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato(1,"Anderson Bernardo", "9999-9999", "Anderson@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato(2,"Andre Bruno", "9899-9899", "Andre@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato(3,"Juan Bernardo", "8899-8899", "Juan@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato(4,"Maria Eduarda", "8888-8888", "Maria@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato(5,"Elisangela Batista", "8877-8877", "Elisangela@hotmail.com", createdAt, updatedAt ));
 
+        for(Contato contato : contatos){
+            System.out.println(contato);
+        }
+        System.out.println("*********************************************************************");
+
+        //Cria uma nova lista pegando apenas o NOME e EMAIL de cada USUÁRIO.
         List<NomeEmail> lista1 = contatos.stream()
                 .map(contato -> new NomeEmail(contato.getNome(), contato.getEmail())).toList();
 
         for(NomeEmail contato : lista1){
+            System.out.println(contato);
+        }
+        System.out.println("*********************************************************************");
+
+        //Cria uma nova lista pegando apenas os usuários que iniciam com a letra A
+        // e apenas o NOME e TELEFONE de cada USUÁRIO.
+        List<NomeTel> lista2 = contatos.stream()
+                .filter(contato -> contato.getNome().startsWith("A"))
+                .map(contato -> new NomeTel(contato.getNome(), contato.getTelefone())).toList();
+
+        for(NomeTel contato : lista2){
             System.out.println(contato);
         }
 

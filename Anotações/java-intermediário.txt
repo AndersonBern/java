@@ -277,3 +277,113 @@ TIPOS DE OPERAÇÕES COM STREAM API:
 
 
 
+DICAS PARA RESOLUÇÃO DE PROBLEMAS
+
+* Para PEGAR MAIS DE UM DADO EM UMA LISTA de objetos com um .map() 
+  em um .stream():
+
+1- Criamos uma lista com vários objetos dentro, utilizando uma classe
+   "Contato"(Já com atributos, construtor, getters e toString):
+
+	ex.: ArrayList<Contato> contatos = new ArrayList<>();
+             contatos.add(new Contato("Anderson Bernardo", "9999-9999",
+		 "Anderson@hotmail.com", createdAt, updatedAt ));
+             contatos.add(new Contato("Andre Bruno", "9899-9899",
+		 "Andre@hotmail.com", createdAt, updatedAt ));
+             contatos.add(new Contato("Juan Bernardo", "8899-8899", 
+		"Juan@hotmail.com", createdAt, updatedAt ));
+ 
+
+2- Criamos uma nova classe 'NomeEmail' para pegar apenas o nome e o 
+   email em cada objeto:
+
+	ex.: public class NomeEmail {
+    	 	public String nome;
+    		public String email;
+
+    		public NomeEmail(String nome, String email){
+        		this.nome = nome;
+        		this.email = email;
+    		}
+
+    		public String getNome(){
+        		return nome;
+    		}
+   		public String getEmail(){
+        		return email;
+    		}
+
+    		public String toString(){
+        		return nome + " -> " + email;
+    		}
+	     }
+
+
+3- Agora criamos uma lista do tipo <NomeEmail> que receberá um '.stream'
+   e fazemos um '.map' para mapear toda a lista que criamos 
+   anteriormente:
+
+	ex.: List<NomeEmail> lista1 = contatos.stream()
+                .map(contato -> new NomeEmail(contato.getNome(), 
+		contato.getEmail())).toList();
+
+	* EXPLICAÇÃO:
+
+		1- List<NomeEmail> lista1 : Criamos uma lista do tipo
+				'NomeEmail' chamada 'lista1';
+
+		2- contatos.stream() : Criamos um '.stream' com a lista
+				  'contatos' que criamos anteriormente;
+
+		3- .map(contato -> new NomeEmail(...) : 
+			Criamos um '.map' para mapear cada objeto 
+			dentro da lista 'contatos'(contato) criamos um
+			novo objeto do tipo 'NomeEmail'(new NomeEmail);
+
+		4- (contato.getNome(), contato.getEmail()): 
+			Como cada objeto do tipo 'NomeEmail' precisa de 
+			2 parâmetros(nome, email). Pegamos o nome e email
+			com os metodos 'getNome' e 'getEmail' da classe 
+			'Contato';
+
+		5- .toList() : Agora transformamos o '.stream()' em 
+			       LISTA novamente com o '.toList()'.
+
+
+4- Para mostrar o resultado da lista de tipo 'NomeEmail', usamos um 
+   'For-each' especifico para listas:
+	
+	ex.: for(NomeEmail contato : lista1){
+            	System.out.println(contato);
+             }
+
+	OBS.: O 'For-each' busca automaticamente o método 'toString' da
+	      classe 'NomeEmail' e exibe o resultado de acordo com ela.
+	      (Neste caso)
+
+
+
+PARA FILTRAR(.filter) DADOS DE UMA LISTA QUE INICIEM COM A LETRA "A":
+
+	ex.:  List<String> lista2 = contatos.stream()
+                .filter(contato -> contato.getNome().startsWith("A"))
+                .toList();
+
+	* EXPLICAÇÃO:
+
+		1- List<String> lista2 : Cria uma lista do tipo String
+				chamada 'lista2';
+	
+		2- contatos.stream() : Transforma a lista 'contatos' em 
+				um '.stream()';
+		
+		3- .filter(contato -> contato.getNome().startsWith("A")):
+			Filtra(.filter) cada contato da lista 'contatos',
+			pegando o NOME(getNome()) e utiliza o método
+			'startsWith()' para verificar se o NOME do 
+			contato inicia com a letra 'A';
+
+	OBS.: O método 'startsWith()' só retorna com STRING, então é 
+	      necessário que utilizemos um dado do tipo 'String'. Neste
+	      caso foi com o método 'getNome' que retorna a 'String nome'. 
+
