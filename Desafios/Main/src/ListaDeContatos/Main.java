@@ -1,10 +1,7 @@
 package ListaDeContatos;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -14,11 +11,11 @@ public class Main {
         LocalDateTime createdAt = LocalDateTime.now();
 
         ArrayList<Contato> contatos = new ArrayList<>();
-        contatos.add(new Contato(1,"Anderson Bernardo", "9999-9999", "Anderson@hotmail.com", createdAt, updatedAt ));
-        contatos.add(new Contato(2,"Andre Bruno", "9899-9899", "Andre@hotmail.com", createdAt, updatedAt ));
-        contatos.add(new Contato(3,"Juan Bernardo", "8899-8899", "Juan@hotmail.com", createdAt, updatedAt ));
-        contatos.add(new Contato(4,"Maria Eduarda", "8888-8888", "Maria@hotmail.com", createdAt, updatedAt ));
-        contatos.add(new Contato(5,"Elisangela Batista", "8877-8877", "Elisangela@hotmail.com", createdAt, updatedAt ));
+        contatos.add(new Contato(1,"Anderson Bernardo", "9999-9999", "Anderson@hotmail.com", createdAt.toString(), updatedAt.toString() ));
+        contatos.add(new Contato(2,"Andre Bruno", "9899-9899", "Andre@hotmail.com", createdAt.toString(), updatedAt.toString() ));
+        contatos.add(new Contato(3,"Juan Bernardo", "8899-8899", "Juan@hotmail.com", createdAt.toString(), updatedAt.toString() ));
+        contatos.add(new Contato(4,"Maria Eduarda", "8888-8888", "Maria@hotmail.com", createdAt.toString(), updatedAt.toString() ));
+        contatos.add(new Contato(5,"Elisangela Batista", "8877-8877", "Elisangela@hotmail.com", createdAt.toString(), updatedAt.toString() ));
 
         for(Contato contato : contatos){
             System.out.println(contato);
@@ -44,13 +41,25 @@ public class Main {
             System.out.println(contato);
         }
 
-        Scanner sc = new Scanner(System.in);
+        HashMap<String, Contato> lista3 = new HashMap<>();
+
+        for( Contato c : contatos) {
+            lista3.put(c.getEmail(), c);
+        }
+
+        String buscador = "Andeon@hotmail.com";
+
+
+        System.out.println(BuscaContato(lista3, buscador));
+
+
+        /*Scanner sc = new Scanner(System.in);
         Scanner cadastro = new Scanner(System.in);
 
         String opcao = "";
 
 
-        /*while(!opcao.equals("0")) {
+        while(!opcao.equals("0")) {
 
             System.out.println(
                     "\n" + "[1] Adicionar contato\n" +
@@ -164,4 +173,15 @@ public class Main {
         sc.close();
         cadastro.close();*/
     }
+
+    public static String BuscaContato(HashMap<String, Contato> lista3, String email) {
+        Contato contato = lista3.get(email);
+        if (contato != null) {
+            return contato.getNome();
+        }
+        else{
+            return "Contato não encontrado!";
+        }
+    }
+
 }

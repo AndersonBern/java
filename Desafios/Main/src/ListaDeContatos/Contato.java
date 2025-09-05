@@ -1,6 +1,7 @@
 package ListaDeContatos;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 public class Contato {
 
@@ -8,10 +9,10 @@ public class Contato {
     public String nome;
     public String telefone;
     public String email;
-    public LocalDateTime createdAt;
-    public LocalDateTime updatedAt;
+    public String createdAt;
+    public String updatedAt;
 
-    public Contato(Integer id, String nome, String telefone, String email, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Contato(Integer id, String nome, String telefone, String email, String createdAt, String updatedAt) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;

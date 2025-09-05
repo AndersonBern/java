@@ -387,3 +387,34 @@ PARA FILTRAR(.filter) DADOS DE UMA LISTA QUE INICIEM COM A LETRA "A":
 	      necessário que utilizemos um dado do tipo 'String'. Neste
 	      caso foi com o método 'getNome' que retorna a 'String nome'. 
 
+
+PARA ORDENAR(.sorted) DADOS DE UMA LISTA COM OBJETOS PELO ATIBUTO 'nome'
+DE UM USUÁRIO:
+
+	ex.: List<Contato> lista = contatos.stream()
+	     .sorted(Comparator.comparing(Contato::getNome))
+	     .collect(Collectors.toList());
+
+
+	EXPLICAÇÃO:
+
+		1- List<Contato> lista = contatos.stream() : Cria a 
+			lista que recebe a lista de objetos 'contatos',
+			e transforma em uma STREAM;
+	
+		2- .sorted(Comparator.comparing(Contato::getNome)) :
+			Ordena(.sorted) e cria um COMPARADOR(Comparator.
+			comparing), que vai pegar o atributo 'nome'
+			(Contato::getNome) e comparar entre os nomes dos
+ 			objetos e ordenar pela ordem NATURAL(alfabética).
+		
+		3- .collect(Collectors.toList()) : 
+			Transforma a STREAM devolta em uma lista 
+			IMUTÁVEL.
+
+	OBS.: Se a sua estrurura de dados for SIMPLES(String, Integer,
+	      etc...) Não seria necessário o COMPARADOR.
+
+
+
+
