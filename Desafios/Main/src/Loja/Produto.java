@@ -17,6 +17,9 @@ public class Produto {
     public Integer getQuant() {
         return quant;
     }
+    public void setQuant(Integer quant){
+        this.quant = quant;
+    }
 
     public Double getPreco() {
         return preco;
