@@ -1,27 +1,28 @@
 package Loja;
 
 public class Produto {
-    String nome;
-    Integer quant;
-    Double preco;
+    private String nome;
+    private Integer quantidade;
+    private Double preco;
 
-    public Produto(String nome, Integer quant, Double preco){
+    public Produto(String nome, Integer quantidade, Double preco){
         this.nome = nome;
-        this.quant = quant;
+        this.quantidade = quantidade;
         this.preco = preco;
     }
     public String getNome(){
         return nome;
     }
 
-    public Integer getQuant() {
-        return quant;
+    public Integer getQuantidade() {
+        return quantidade;
     }
-    public void setQuant(Integer quant){
-        this.quant = quant;
+    public void setQuant(Integer quantidade){
+        this.quantidade = quantidade;
     }
 
     public Double getPreco() {
         return preco;
     }
+
 }
