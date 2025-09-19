@@ -6,7 +6,15 @@ import java.util.Scanner;
 
 import static Loja.Estoque.*;
 
+
 public class Loja {
+
+    private static final int OPCAO_ADICIONAR = 1;
+    private static final int OPCAO_VENDER   = 2;
+    private static final int OPCAO_REPOR    = 3;
+    private static final int OPCAO_ESTOQUE = 4;
+    private static final int OPCAO_SAIR     = 5;
+
     public static void mostrarMenu(){
         System.out.println("********************************************************************");
         System.out.println("[ 1 ] Adicionar Produto");
@@ -24,7 +32,7 @@ public class Loja {
 
     public static void main(String[] args){
 
-        Integer id = 3;
+        int id = 3;
         Scanner sc = new Scanner(System.in);
 
         HashMap<Integer, Produto> estoque = new HashMap<>();
@@ -38,50 +46,36 @@ public class Loja {
             mostrarMenu();
 
             System.out.print("Digite uma opção: ");
-            String opcao = sc.nextLine();
+            int opcao = 0;
+
+            try{
+                opcao = Integer.parseInt(sc.nextLine());
+            }
+            catch(NumberFormatException e){
+                System.out.println("Entrada inválida! Digite apenas números inteiros.");
+            }
+
 
             switch (opcao){
-                case "1":
+
+                case OPCAO_ADICIONAR:
                     id++;
-
-                    System.out.print("Digite o NOME do produto: ");
-                    String nome = sc.nextLine();
-
-                    System.out.print("Digite a QUANTIDADE do produto: ");
-                    int quantidade = Integer.parseInt(sc.nextLine());
-
-                    System.out.print("Digite o PREÇO do produto: ");
-                    String precoString = sc.nextLine();
-                    double preco;
-
-                    //Para aceitar virgula ou ponto
-                    if(precoString.contains(",")){
-                        preco = Double.parseDouble(precoString.replace(",", "."));
-                    }
-                    else{
-                        preco = Double.parseDouble(precoString);
-                    }
-
-                    Produto produto = new Produto(nome, quantidade, preco);
-                    estoque.put(id, produto);
-
-
-                    System.out.println("Produto cadastrado ao estoque!");
+                    adicionar(id, estoque, sc);
                     break;
 
-                case "2":
-                    venderProduto(estoque);
+                case OPCAO_VENDER:
+                    venderProduto(estoque, sc);
                     break;
 
-                case "3":
-                    reporProduto(estoque);
+                case OPCAO_REPOR:
+                    reporProduto(estoque, sc);
                     break;
 
-                case "4":
+                case OPCAO_ESTOQUE:
                     verEstoque(estoque);
                     break;
 
-                case "5":
+                case OPCAO_SAIR:
                     executando = false;
                     break;
 
