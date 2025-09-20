@@ -24,21 +24,13 @@ public class Loja {
         System.out.println("[ 5 ] Sair");
     }
 
-    public static void listarProdutos(HashMap<Integer, Produto> estoque){
-        for(Map.Entry<Integer, Produto> p : estoque.entrySet()){
-            System.out.println("[ " + p.getKey() + " ] " + p.getValue().getNome());
-        }
-    }
-
     public static void main(String[] args){
-
-        int id = 3;
         Scanner sc = new Scanner(System.in);
 
-        HashMap<Integer, Produto> estoque = new HashMap<>();
-        estoque.put(1, new Produto("café", 1, 14.8));
-        estoque.put(2, new Produto("coco", 3, 4.8));
-        estoque.put(3, new Produto("bolo", 2, 5.7));
+        Estoque estoque = new Estoque();
+        estoque.adicionar("café", 1, 14.8);
+        estoque.adicionar("coco", 3, 4.8);
+        estoque.adicionar("bolo", 2, 5.7);
 
         boolean executando = true;
         while(executando){
@@ -59,20 +51,47 @@ public class Loja {
             switch (opcao){
 
                 case OPCAO_ADICIONAR:
-                    id++;
-                    adicionar(id, estoque, sc);
+                    System.out.print("Digite o NOME do produto: ");
+                    String nome = sc.nextLine();
+
+                    int quantidade = lerInteiro(sc, "Digite a QUANTIDADE do produto: ");
+
+                    double preco = lerDouble(sc, "Digite o PREÇO do produto: ");
+
+                    Produto novo = estoque.adicionar(nome, quantidade, preco);
+                    System.out.println("Produto: " + novo.getNome() + " foi adicionado ao estoque!");
                     break;
 
                 case OPCAO_VENDER:
-                    venderProduto(estoque, sc);
+
+                    System.out.println("********************************************************************");
+                    System.out.println("Qual produto você deseja VENDER ?");
+
+                    estoque.listarProdutos();
+
+                    int id = lerInteiro(sc, "Digite uma opção: ");
+
+                    int unidade = lerInteiro(sc, "Quantas unidades você deseja VENDER: ");
+
+                    estoque.venderProduto(id, unidade);
                     break;
 
                 case OPCAO_REPOR:
-                    reporProduto(estoque, sc);
+                    System.out.println("********************************************************************");
+                    System.out.println("Qual produto você deseja REPOR ?");
+
+                    estoque.listarProdutos();
+
+                    int reposicao = lerInteiro(sc, "Digite uma opção: ");
+
+                    int unidades = lerInteiro(sc, "Quantas unidades você deseja REPOR: ");
+
+                    estoque.reporProduto(reposicao, unidades);
+
                     break;
 
                 case OPCAO_ESTOQUE:
-                    verEstoque(estoque);
+                    estoque.verEstoque();
                     break;
 
                 case OPCAO_SAIR:

@@ -4,9 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import static Loja.Loja.listarProdutos;
-
 public class Estoque {
+
+    private HashMap<Integer, Produto> produtos = new HashMap<>();
+    private int nextId = 1;
 
     public static int lerInteiro(Scanner sc, String mensagem) {
 
@@ -31,6 +32,8 @@ public class Estoque {
     public static double lerDouble(Scanner sc, String mensagem){
         while (true) {
 
+            System.out.print(mensagem);
+
             //Para aceitar virgula ou ponto
             try {
                 double preco = Double.parseDouble(sc.nextLine().replace(",", "."));
@@ -45,77 +48,65 @@ public class Estoque {
         }
     }
 
-    public static void adicionar(int id, HashMap<Integer, Produto> estoque, Scanner sc) {
-
-        System.out.print("Digite o NOME do produto: ");
-        String nome = sc.nextLine();
-
-        int quantidade = lerInteiro(sc, "Digite a QUANTIDADE do produto: ");
-
-        double preco = lerDouble(sc, "Digite o PREÇO do produto: ");
+    public Produto adicionar(String nome, int quantidade, double preco) {
 
         Produto produto = new Produto(nome, quantidade, preco);
-        estoque.put(id, produto);
-
-
-        System.out.println("Produto cadastrado ao estoque!");
+        produtos.put(nextId, produto);
+        nextId++;
+        return produto;
     }
 
-    public static void venderProduto(HashMap<Integer, Produto> estoque, Scanner sc){
+    public void venderProduto(int id, int unidade){
 
-        System.out.println("********************************************************************");
-        System.out.println("Qual produto você deseja VENDER ?");
+        if(!produtos.containsKey(id)){
 
-        listarProdutos(estoque);
-
-        int venda = lerInteiro(sc, "Digite uma opção: ");
-
-        Produto produto = estoque.get(venda);
-
-        if(estoque.containsKey(venda)){
-
-            int unidade = lerInteiro(sc, "Quantas unidades de [ " + produto.getNome()
-                    + " ] você deseja VENDER: ");
+            System.out.println("Produto não encontrado!");
+        }
+        else{
+            Produto produto = produtos.get(id);
 
             boolean vendido = produto.vender(unidade);
 
             if(vendido && produto.getQuantidade() <= 0){
-                estoque.remove(venda);
+                System.out.println("Produto: " + produto.getNome() + " vendido com sucesso!");
+                produtos.remove(id);
+
+            } else if (vendido) {
+                System.out.println("Produto: " + produto.getNome() + " vendido com sucesso!");
+
+            }
+            else {
+                System.out.println("Estoque INSUFICIENTE! Só temos "
+                        + produto.getQuantidade() + " unidade(s) de " + produto.getNome() + ".");
             }
         }
-        else{
-            System.out.println("Produto não encontrado!");
-        }
     }
 
-    public static  void reporProduto(HashMap<Integer, Produto> estoque, Scanner sc){
+    public void reporProduto(int id, int unidade){
 
-        System.out.println("********************************************************************");
-        System.out.println("Qual produto você deseja REPOR ?");
+        if(!produtos.containsKey(id)){
+            System.out.println("Produto não encontrado!");
 
-        listarProdutos(estoque);
-
-        int reposicao = lerInteiro(sc, "Digite uma opção: ");
-
-        Produto produto = estoque.get(reposicao);
-
-        if(estoque.containsKey(reposicao)){
-
-            int unidade = lerInteiro(sc, "Quantas unidades de [ " + produto.getNome()
-                    + " ] você deseja REPOR: ");
-
+        }
+        else{
+            Produto produto = produtos.get(id);
             boolean reposto = produto.repor(unidade);
-        }
-        else{
-            System.out.println("Produto não encontrado!");
+
+             if (reposto) {
+                 System.out.println("Reposição feita com sucesso! Quantidade atual: "
+                         + produto.getQuantidade() + ".");
+             }
+             else{
+                 System.out.println("Quantidade inválida! Digite um valor MAIOR que 0.");
+             }
         }
     }
 
-    public static void verEstoque(HashMap<Integer, Produto> estoque){
+    public void verEstoque(){
         System.out.println("*********************** Estoque de produtos *********************** ");
         double total = 0.0;
 
-        for(Map.Entry<Integer, Produto> p : estoque.entrySet()){
+        for(Map.Entry<Integer, Produto> p : produtos.entrySet()){
 
             System.out.println("ID: " + p.getKey());
             System.out.println(p.getValue());
@@ -126,6 +117,12 @@ public class Estoque {
 
         String totalFormatado = String.format("%.2f", total);
         System.out.println(" Valor TOTAL do estoque: " + totalFormatado + " R$");
+    }
+
+    public void listarProdutos(){
+        for(Map.Entry<Integer, Produto> p : produtos.entrySet()){
+            System.out.println("[ " + p.getKey() + " ] " + p.getValue().getNome());
+        }
     }
 }
 

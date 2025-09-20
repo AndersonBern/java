@@ -25,27 +25,21 @@ public class Produto {
     public boolean vender(int qnt){
         if(qnt <= quantidade){
             quantidade -= qnt;
-
-            System.out.println("Venda feita com sucesso!");
             return true;
         }
-        System.out.println("Estoque INSUFICIENTE! Só temos " + quantidade + " unidade(s) de " + nome + ".");
         return false;
     }
 
     public boolean repor(int qnt){
         if(qnt > 0){
             quantidade += qnt;
-            System.out.println("Reposição feita com sucesso! Quantidade atual: " + quantidade + ".");
-
             return true;
         }
-        System.out.println("Quantidade inválida! Digite um valor MAIOR que 0.");
         return false;
     }
 
     public String toString(){
-        return "Produto: " + nome + "\nEstoque: " + quantidade + "\nPreço: R$ " + preco;
+        return "Produto: " + nome + "\nQuantidade: " + quantidade + "\nPreço: R$ " + preco;
     }
 
 }
