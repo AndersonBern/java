@@ -23,11 +23,11 @@ public class Produto {
     }
 
     public boolean vender(int qnt){
-        if(qnt <= quantidade){
-            quantidade -= qnt;
-            return true;
+        if(qnt <=0 || qnt > quantidade){
+            return false;
         }
-        return false;
+        quantidade -= qnt;
+        return true;
     }
 
     public boolean repor(int qnt){

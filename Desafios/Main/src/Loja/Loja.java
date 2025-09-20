@@ -73,7 +73,14 @@ public class Loja {
 
                     int unidade = lerInteiro(sc, "Quantas unidades você deseja VENDER: ");
 
-                    estoque.venderProduto(id, unidade);
+                    boolean sucesso = estoque.venderProduto(id, unidade);
+
+                    if (sucesso){
+                        System.out.println("Produto vendido com sucesso!");
+                    }
+                    else{
+                        System.out.println("Venda não concluida! Estoque INSUFICIENTE ou produto não ENCONTRADO!");
+                    }
                     break;
 
                 case OPCAO_REPOR:
@@ -86,7 +93,14 @@ public class Loja {
 
                     int unidades = lerInteiro(sc, "Quantas unidades você deseja REPOR: ");
 
-                    estoque.reporProduto(reposicao, unidades);
+                    boolean sucess = estoque.reporProduto(reposicao, unidades);
+
+                    if (sucess){
+                        System.out.println("Produto REPOSTO com sucesso!");
+                    }
+                    else{
+                        System.out.println("Reposição não concluida! QUANTIDADE inválida ou produto não ENCONTRADO!");
+                    }
 
                     break;
 

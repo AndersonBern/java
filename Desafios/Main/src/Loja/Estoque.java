@@ -56,49 +56,33 @@ public class Estoque {
         return produto;
     }
 
-    public void venderProduto(int id, int unidade){
+    public boolean venderProduto(int id, int unidade){
 
         if(!produtos.containsKey(id)){
-
-            System.out.println("Produto não encontrado!");
+            return false;
         }
         else{
             Produto produto = produtos.get(id);
-
             boolean vendido = produto.vender(unidade);
 
-            if(vendido && produto.getQuantidade() <= 0){
-                System.out.println("Produto: " + produto.getNome() + " vendido com sucesso!");
+            if(vendido && produto.getQuantidade() <= 0) {
                 produtos.remove(id);
-
-            } else if (vendido) {
-                System.out.println("Produto: " + produto.getNome() + " vendido com sucesso!");
-
             }
-            else {
-                System.out.println("Estoque INSUFICIENTE! Só temos "
-                        + produto.getQuantidade() + " unidade(s) de " + produto.getNome() + ".");
-            }
+            return vendido;
         }
     }
 
-    public void reporProduto(int id, int unidade){
+    public boolean reporProduto(int id, int unidade){
 
         if(!produtos.containsKey(id)){
-            System.out.println("Produto não encontrado!");
+            return false;
 
         }
         else{
             Produto produto = produtos.get(id);
             boolean reposto = produto.repor(unidade);
 
-             if (reposto) {
-                 System.out.println("Reposição feita com sucesso! Quantidade atual: "
-                         + produto.getQuantidade() + ".");
-             }
-             else{
-                 System.out.println("Quantidade inválida! Digite um valor MAIOR que 0.");
-             }
+            return reposto;
         }
     }
 
