@@ -54,9 +54,9 @@ public class Loja {
                     System.out.print("Digite o NOME do produto: ");
                     String nome = sc.nextLine();
 
-                    int quantidade = lerInteiro(sc, "Digite a QUANTIDADE do produto: ");
+                    int quantidade = Leitura.lerInteiro(sc, "Digite a QUANTIDADE do produto: ");
 
-                    double preco = lerDouble(sc, "Digite o PREÇO do produto: ");
+                    double preco = Leitura.lerDouble(sc, "Digite o PREÇO do produto: ");
 
                     Produto novo = estoque.adicionar(nome, quantidade, preco);
                     System.out.println("Produto: " + novo.getNome() + " foi adicionado ao estoque!");
@@ -69,9 +69,9 @@ public class Loja {
 
                     estoque.listarProdutos();
 
-                    int id = lerInteiro(sc, "Digite uma opção: ");
+                    int id = Leitura.lerInteiro(sc, "Digite uma opção: ");
 
-                    int unidade = lerInteiro(sc, "Quantas unidades você deseja VENDER: ");
+                    int unidade = Leitura.lerInteiro(sc, "Quantas unidades você deseja VENDER: ");
 
                     boolean sucesso = estoque.venderProduto(id, unidade);
 
@@ -89,9 +89,9 @@ public class Loja {
 
                     estoque.listarProdutos();
 
-                    int reposicao = lerInteiro(sc, "Digite uma opção: ");
+                    int reposicao = Leitura.lerInteiro(sc, "Digite uma opção: ");
 
-                    int unidades = lerInteiro(sc, "Quantas unidades você deseja REPOR: ");
+                    int unidades = Leitura.lerInteiro(sc, "Quantas unidades você deseja REPOR: ");
 
                     boolean sucess = estoque.reporProduto(reposicao, unidades);
 
@@ -105,7 +105,23 @@ public class Loja {
                     break;
 
                 case OPCAO_ESTOQUE:
-                    estoque.verEstoque();
+                    System.out.println("*********************** Estoque de produtos *********************** ");
+
+                    estoque.getProdutos().forEach((indice, produto) -> {
+
+                        System.out.println("ID: " + indice);
+                        System.out.println(produto);
+                        System.out.println("--------------------------------------------------------------------");
+                    });
+
+                    double total = estoque.getProdutos().values()
+                            .stream()
+                            .mapToDouble(p -> p.getPreco() * p.getQuantidade())
+                            .sum();
+
+                    String totalFormatado = String.format("%.2f", total);
+                    System.out.println(" Valor TOTAL do estoque: " + totalFormatado + " R$");
+
                     break;
 
                 case OPCAO_SAIR:
