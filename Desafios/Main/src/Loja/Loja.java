@@ -1,11 +1,6 @@
 package Loja;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-
-import static Loja.Estoque.*;
-
 
 public class Loja {
 
@@ -14,6 +9,8 @@ public class Loja {
     private static final int OPCAO_REPOR    = 3;
     private static final int OPCAO_ESTOQUE = 4;
     private static final int OPCAO_SAIR     = 5;
+
+    private static final Estoque estoque = new Estoque();
 
     public static void mostrarMenu(){
         System.out.println("********************************************************************");
@@ -24,10 +21,37 @@ public class Loja {
         System.out.println("[ 5 ] Sair");
     }
 
+    public static void listarProdutos(boolean resumo){
+
+        estoque.getProdutos().forEach((id, produto) -> {
+
+            if(resumo){
+                //Só id e nome
+                System.out.println("[ " + id + " ] " + produto.getNome());
+            }
+            else{
+                //Mostra produto com mais detalhes
+                System.out.println("ID: " + id);
+                System.out.println(produto);
+                System.out.println("--------------------------------------------------------------------");
+            }
+
+        });
+
+        if(!resumo){
+            //Calcula TOTAL(Somente na lista detalhada)
+            double total = estoque.getProdutos().values()
+                    .stream()
+                    .mapToDouble(p -> p.getPreco() * p.getQuantidade())
+                    .sum();
+
+            System.out.println(" Valor TOTAL do estoque: " + String.format("%.2f", total) + " R$");
+        }
+    }
+
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
 
-        Estoque estoque = new Estoque();
         estoque.adicionar("café", 1, 14.8);
         estoque.adicionar("coco", 3, 4.8);
         estoque.adicionar("bolo", 2, 5.7);
@@ -67,7 +91,7 @@ public class Loja {
                     System.out.println("********************************************************************");
                     System.out.println("Qual produto você deseja VENDER ?");
 
-                    estoque.listarProdutos();
+                    listarProdutos(true);
 
                     int id = Leitura.lerInteiro(sc, "Digite uma opção: ");
 
@@ -87,7 +111,7 @@ public class Loja {
                     System.out.println("********************************************************************");
                     System.out.println("Qual produto você deseja REPOR ?");
 
-                    estoque.listarProdutos();
+                    listarProdutos(true);
 
                     int reposicao = Leitura.lerInteiro(sc, "Digite uma opção: ");
 
@@ -107,20 +131,7 @@ public class Loja {
                 case OPCAO_ESTOQUE:
                     System.out.println("*********************** Estoque de produtos *********************** ");
 
-                    estoque.getProdutos().forEach((indice, produto) -> {
-
-                        System.out.println("ID: " + indice);
-                        System.out.println(produto);
-                        System.out.println("--------------------------------------------------------------------");
-                    });
-
-                    double total = estoque.getProdutos().values()
-                            .stream()
-                            .mapToDouble(p -> p.getPreco() * p.getQuantidade())
-                            .sum();
-
-                    String totalFormatado = String.format("%.2f", total);
-                    System.out.println(" Valor TOTAL do estoque: " + totalFormatado + " R$");
+                    listarProdutos(false);
 
                     break;
 
@@ -136,4 +147,5 @@ public class Loja {
         }
         sc.close();
     }
+
 }

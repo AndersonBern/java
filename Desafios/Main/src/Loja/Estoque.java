@@ -1,11 +1,11 @@
 package Loja;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 public class Estoque {
 
-    private HashMap<Integer, Produto> produtos = new HashMap<>();
+    private final LinkedHashMap<Integer, Produto> produtos = new LinkedHashMap<>();
     private int nextId = 1;
 
     public Produto adicionar(String nome, int quantidade, double preco) {
@@ -46,16 +46,8 @@ public class Estoque {
         }
     }
 
-    public void listarProdutos(){
-
-        produtos.forEach((id, produto) -> {
-            System.out.println("[ " + id + " ] " + produto.getNome());
-        });
-
-    }
-
     public HashMap<Integer, Produto> getProdutos(){
-        return new HashMap<>(produtos);
+        return new LinkedHashMap<>(produtos);
     }
 }
 
