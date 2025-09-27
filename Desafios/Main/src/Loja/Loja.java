@@ -1,5 +1,10 @@
 package Loja;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 public class Loja {
@@ -8,10 +13,12 @@ public class Loja {
     private static final int OPCAO_VENDER = 2;
     private static final int OPCAO_REPOR = 3;
     private static final int OPCAO_ESTOQUE = 4;
-    private static final int OPCAO_SAIR = 5;
+    private static final int OPCAO_SALVAR = 5;
 
     private static final Estoque estoque = new Estoque();
     static Scanner sc = new Scanner(System.in);
+    private static HashMap<Integer, Produto> produtos;
+    private static Persistencia persistencia;
 
     private static final String MSG_VENDA_SUCESSO = "Produto VENDIDO com sucesso!";
     private static final String MSG_VENDA_FALHA = "Venda não concluida! Estoque INSUFICIENTE ou produto não ENCONTRADO!";
@@ -19,12 +26,14 @@ public class Loja {
     private static final String MSG_REPOR_FALHA = "Reposição não concluida! QUANTIDADE inválida ou produto não ENCONTRADO!";
     private static final String MSG_OPCAO = "Digite uma opção: ";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
+        persistencia = new Persistencia(null, "produtos.json"); // cria persistencia com caminho
+        LinkedHashMap<Integer, Produto> produtosCarregados = persistencia.carregar(); // lê do arquivo
 
-        estoque.adicionar("café", 1, 14.8);
-        estoque.adicionar("coco", 3, 4.8);
-        estoque.adicionar("bolo", 2, 5.7);
+        estoque.setProdutos(produtosCarregados);
+
+        produtos = estoque.getProdutos();
 
         boolean executando = true;
         while (executando) {
@@ -53,11 +62,13 @@ public class Loja {
 
                     Produto novo = estoque.adicionar(nome, quantidade, preco);
                     System.out.println("Produto: " + novo.getNome() + " foi adicionado ao estoque!");
+
                     break;
 
                 case OPCAO_VENDER:
 
                     auxiliar("vender");
+                    persistencia.salvar();
                     break;
 
                 case OPCAO_REPOR:
@@ -72,7 +83,12 @@ public class Loja {
 
                     break;
 
-                case OPCAO_SAIR:
+                case OPCAO_SALVAR:
+
+                    System.out.println(new Gson().toJson(produtos));
+                    persistencia = new Persistencia(produtos, "produtos.json");
+                    persistencia.salvar();
+
                     executando = false;
                     break;
 
@@ -91,12 +107,12 @@ public class Loja {
         System.out.println("[ 2 ] Vender Produto");
         System.out.println("[ 3 ] Repor Produto");
         System.out.println("[ 4 ] Listar Produtos");
-        System.out.println("[ 5 ] Sair");
+        System.out.println("[ 5 ] SALVAR alterações");
     }
 
     public static void listarProdutos(boolean resumo) {
 
-        estoque.getProdutos().forEach((id, produto) -> {
+        produtos.forEach((id, produto) -> {
 
             if (resumo) {
                 //Só id e nome
@@ -112,7 +128,7 @@ public class Loja {
 
         if (!resumo) {
             //Calcula TOTAL(Somente na lista detalhada)
-            double total = estoque.getProdutos().values()
+            double total = produtos.values()
                     .stream()
                     .mapToDouble(p -> p.getPreco() * p.getQuantidade())
                     .sum();

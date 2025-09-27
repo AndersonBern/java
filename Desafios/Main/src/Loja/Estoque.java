@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 
 public class Estoque {
 
-    private final LinkedHashMap<Integer, Produto> produtos = new LinkedHashMap<>();
+    private LinkedHashMap<Integer, Produto> produtos = new LinkedHashMap<>();
     private int nextId = 1;
 
     public Produto adicionar(String nome, int quantidade, double preco) {
@@ -46,8 +46,11 @@ public class Estoque {
         }
     }
 
-    public HashMap<Integer, Produto> getProdutos(){
+    public LinkedHashMap<Integer, Produto> getProdutos(){
         return new LinkedHashMap<>(produtos);
+    }
+    public void setProdutos(LinkedHashMap<Integer, Produto> produtosCarregados) {
+        this.produtos = produtosCarregados;
     }
 }
 
