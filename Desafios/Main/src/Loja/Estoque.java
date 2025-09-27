@@ -1,14 +1,22 @@
 package Loja;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
 
 public class Estoque {
 
     private LinkedHashMap<Integer, Produto> produtos = new LinkedHashMap<>();
     private int nextId = 1;
 
+
     public Produto adicionar(String nome, int quantidade, double preco) {
+
+        //Pega o ultimo ID, e incrementa +1
+        Set<Integer> keys = produtos.keySet();
+        List<Integer> keyList = new ArrayList<>(keys);
+        nextId += keyList.getLast();
 
         Produto produto = new Produto(nome, quantidade, preco);
         produtos.put(nextId, produto);

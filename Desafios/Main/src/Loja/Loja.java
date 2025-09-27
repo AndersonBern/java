@@ -1,8 +1,5 @@
 package Loja;
 
-import com.google.gson.Gson;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
@@ -26,7 +23,7 @@ public class Loja {
     private static final String MSG_REPOR_FALHA = "Reposição não concluida! QUANTIDADE inválida ou produto não ENCONTRADO!";
     private static final String MSG_OPCAO = "Digite uma opção: ";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         persistencia = new Persistencia(null, "produtos.json"); // cria persistencia com caminho
         LinkedHashMap<Integer, Produto> produtosCarregados = persistencia.carregar(); // lê do arquivo
@@ -85,7 +82,8 @@ public class Loja {
 
                 case OPCAO_SALVAR:
 
-                    System.out.println(new Gson().toJson(produtos));
+                    produtos = estoque.getProdutos();
+
                     persistencia = new Persistencia(produtos, "produtos.json");
                     persistencia.salvar();
 
@@ -112,7 +110,7 @@ public class Loja {
 
     public static void listarProdutos(boolean resumo) {
 
-        produtos.forEach((id, produto) -> {
+        estoque.getProdutos().forEach((id, produto) -> {
 
             if (resumo) {
                 //Só id e nome
@@ -128,7 +126,7 @@ public class Loja {
 
         if (!resumo) {
             //Calcula TOTAL(Somente na lista detalhada)
-            double total = produtos.values()
+            double total = estoque.getProdutos().values()
                     .stream()
                     .mapToDouble(p -> p.getPreco() * p.getQuantidade())
                     .sum();
