@@ -12,7 +12,7 @@ public class Loja {
     private static final int OPCAO_ESTOQUE = 4;
     private static final int OPCAO_SALVAR = 5;
 
-    private static final Estoque estoque = new Estoque();
+    static final Estoque estoque = new Estoque();
     static Scanner sc = new Scanner(System.in);
     private static HashMap<Integer, Produto> produtos;
     private static Persistencia persistencia;
