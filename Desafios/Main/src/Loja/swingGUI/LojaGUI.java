@@ -1,10 +1,14 @@
-package Loja;
+package Loja.swingGUI;
+
+import Loja.Estoque;
+import Loja.Persistencia;
+import Loja.Produto;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
 
-import static Loja.Loja.estoque;
+import static Loja.swingGUI.AuxiliarGUI.auxiliar;
 
 public class LojaGUI {
     public static void main(String[] args){
@@ -13,7 +17,7 @@ public class LojaGUI {
         JFrame frame = new JFrame("Minha loja");
 
         //Redimensiona a janela(Width e Height)
-        frame.setSize(600, 400);
+        frame.setSize(500, 350);
 
         //Fecha a janela ao clicar no "X"
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,13 +70,41 @@ public class LojaGUI {
         LinkedHashMap<Integer, Produto> produtosCarregados = persistencia.carregar(); //lê do arquivo
         Estoque estoque = new Estoque(); //Cria a instância do estoque
         estoque.setProdutos(produtosCarregados); //Adiciona o estoque atualizado
-        atualizarArea(areaTexto, estoque);
+
+
+        //Qaundo clicar no botão "Adicionar", adiciona o produto
+        botaoAdicionar.addActionListener(e -> {
+
+            String nome = LeituraGUI.lerString();
+            int quantidade = LeituraGUI.lerInteiro("Digite a QUANTIDADE do produto:");
+            double preco = LeituraGUI.lerDouble();
+
+            estoque.adicionar(nome, quantidade, preco);
+            JOptionPane.showMessageDialog(null, "Produto ADICIONADO com sucesso!");
+            atualizarArea(areaTexto, estoque);
+
+        });
+
+        //Quando clicar no botão "Vender", vender produto
+        botaoVender.addActionListener(e -> {
+            auxiliar("vender", estoque, areaTexto);
+            atualizarArea(areaTexto, estoque);
+        });
+
+        //Quando clicar no botão "Repor", repor produto
+        botaoRepor.addActionListener(e -> {
+            auxiliar("repor", estoque, areaTexto);
+            atualizarArea(areaTexto, estoque);
+        });
+
+        //Quando clicar no botão "Estoque", aparece o estoque
+        botaoListar.addActionListener(e -> atualizarArea(areaTexto, estoque));
 
     }
 
     private static void atualizarArea(JTextArea areaTexto, Estoque estoque) {
 
-        //Cria uma String Dinâmica, que cria todo o conteúdo abaixo em uma unica string;
+        //Cria uma String Dinâmica, que une toda esta operação em uma única String.
         StringBuilder sb = new StringBuilder();
 
         //For-each para criar as Strings para cada produto
@@ -81,7 +113,7 @@ public class LojaGUI {
                     .append("Nome: ").append(produto.getNome()).append("\n")
                     .append("Quantidade: ").append(produto.getQuantidade()).append("\n")
                     .append("Preço: ").append(produto.getPreco()).append(" R$").append("\n")
-                    .append("---------------------------\n");;
+                    .append("---------------------------\n");
         });
 
         //Atualiza a areaTexto com a String que criamos do Produto

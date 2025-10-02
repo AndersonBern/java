@@ -1,5 +1,6 @@
 package Loja;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Leitura {
