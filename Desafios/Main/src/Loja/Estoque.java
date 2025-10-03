@@ -61,7 +61,7 @@ public class Estoque {
         return new LinkedHashMap<>(produtos);
     }
     public void setProdutos(LinkedHashMap<Integer, Produto> produtosCarregados) {
-        this.produtos = produtosCarregados;
+        this.produtos = (produtosCarregados != null) ? produtosCarregados : new LinkedHashMap<>();
     }
 }
 

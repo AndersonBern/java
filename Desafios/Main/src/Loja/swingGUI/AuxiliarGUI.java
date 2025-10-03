@@ -10,15 +10,14 @@ public class AuxiliarGUI {
     private static final String MSG_VENDA_FALHA = "Venda não concluida! Estoque INSUFICIENTE ou produto não ENCONTRADO!";
     private static final String MSG_REPOR_SUCESSO = "Produto REPOSTO com sucesso!";
     private static final String MSG_REPOR_FALHA = "Reposição não concluida! QUANTIDADE inválida ou produto não ENCONTRADO!";
-    private static final String MSG_OPCAO = "Digite uma opção: ";
 
-    static void auxiliar(String acao, Estoque estoque, JTextArea areaTexto) {
+    static void auxiliar(String acao, Estoque estoque, JTextArea areaTexto, JFrame frame) {
 
         listarProdutos(areaTexto, estoque);
 
-        int id = LeituraGUI.lerInteiro("Qual produto você deseja " + acao.toUpperCase() + ":");
+        int id = LeituraGUI.lerInteiro("Qual produto você deseja " + acao.toUpperCase() + ":", frame);
 
-        int unidade = LeituraGUI.lerInteiro("Quantas UNIDADES você deseja " + acao.toUpperCase() + ":");
+        int unidade = LeituraGUI.lerInteiro("Quantas UNIDADES você deseja " + acao.toUpperCase() + ":", frame);
 
         boolean sucesso;
 
@@ -27,17 +26,17 @@ public class AuxiliarGUI {
             case "vender":
                 sucesso = estoque.venderProduto(id, unidade);
 
-                JOptionPane.showMessageDialog(null, sucesso ? MSG_VENDA_SUCESSO : MSG_VENDA_FALHA);
+                JOptionPane.showMessageDialog(frame, sucesso ? MSG_VENDA_SUCESSO : MSG_VENDA_FALHA);
                 break;
 
             case "repor":
                 sucesso = estoque.reporProduto(id, unidade);
 
-                JOptionPane.showMessageDialog(null, sucesso ? MSG_REPOR_SUCESSO : MSG_REPOR_FALHA);
+                JOptionPane.showMessageDialog(frame, sucesso ? MSG_REPOR_SUCESSO : MSG_REPOR_FALHA);
                 break;
 
             default:
-                JOptionPane.showMessageDialog(null,"Ação inválida!");
+                JOptionPane.showMessageDialog(frame,"Ação inválida!");
                 break;
         }
 

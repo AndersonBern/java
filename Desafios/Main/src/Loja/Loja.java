@@ -82,6 +82,10 @@ public class Loja {
 
                 case OPCAO_SALVAR:
 
+                    estoque.adicionar("café", 1, 15.9);
+                    estoque.adicionar("bolo", 2, 6.9);
+                    estoque.adicionar("ovo", 3, 13.8);
+
                     produtos = estoque.getProdutos();
 
                     persistencia = new Persistencia(produtos, "produtos.json");

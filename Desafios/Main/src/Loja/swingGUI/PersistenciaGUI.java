@@ -1,5 +1,6 @@
-package Loja;
+package Loja.swingGUI;
 
+import Loja.Produto;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,24 +12,27 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class Persistencia {
+public class PersistenciaGUI {
 
     public Gson gson = new Gson();
     public HashMap<Integer, Produto> produtos;
     public String caminho;
+    public JFrame frame;
 
-    public Persistencia(HashMap<Integer, Produto> produtos, String caminho) {
+    public PersistenciaGUI(HashMap<Integer, Produto> produtos, String caminho, JFrame frame) {
         this.produtos = produtos;
         this.caminho = caminho;
+        this.frame = frame;
     }
 
     public void salvar(){
         try(FileWriter writer = new FileWriter(caminho)) {
             gson.toJson(produtos, writer);
             writer.flush();
+            JOptionPane.showMessageDialog(frame,"Alterações SALVAS com sucesso!");
         }
         catch (IOException e){
-            System.out.println(e + ": Arquivo não salvo!");
+            JOptionPane.showMessageDialog(frame,"Arquivo não salvo!");
         }
     }
 
@@ -44,3 +48,4 @@ public class Persistencia {
         }
     }
 }
+
