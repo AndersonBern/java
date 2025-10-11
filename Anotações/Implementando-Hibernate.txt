@@ -1,0 +1,98 @@
+🔹 Etapa 1 — Dependências já adicionadas no pom.xml
+
+Se você seguiu antes, seu <dependencies> deve ter algo assim:
+
+<dependencies>
+    <!-- Hibernate ORM -->
+    <dependency>
+        <groupId>org.hibernate.orm</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>6.4.4.Final</version>
+    </dependency>
+
+    <!-- Driver JDBC do PostgreSQL -->
+    <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.7.2</version>
+    </dependency>
+</dependencies>
+
+
+💬 O que isso faz:
+
+hibernate-core: permite que o Java transforme objetos em tabelas e 
+vice-versa.
+
+postgresql: permite que o Java “converse” com o PostgreSQL.
+
+Agora precisamos configurar o Hibernate para se conectar ao banco.
+
+🔹 Etapa 2 — Criar o arquivo de configuração hibernate.cfg.xml
+
+Dentro do seu projeto Maven, vá em:
+
+src/main/resources
+
+
+(se não existir, cria a pasta resources).
+
+Crie o arquivo:
+
+hibernate.cfg.xml
+
+🔹 Estrutura básica do hibernate.cfg.xml
+
+O arquivo vai conter:
+
+Informações de conexão (URL, usuário, senha);
+
+Dialeto do banco (PostgreSQLDialect);
+
+Instruções sobre criação/atualização das tabelas.
+
+Exemplo simplificado de como ficará a estrutura (você escreve passo a 
+passo):
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Conexão com o banco -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/nomeDoBanco</property>
+        <property name="hibernate.connection.username">seuUsuario</property>
+        <property name="hibernate.connection.password">suaSenha</property>
+
+        <!-- Dialeto do PostgreSQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Criação automática das tabelas -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Mostrar SQL no console -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Aqui vão as classes mapeadas -->
+        <!-- <mapping class="br.com.loja.Produto"/> -->
+    </session-factory>
+</hibernate-configuration>
+
+
+💬 Explicação detalhada:
+
+hibernate.connection.driver_class: diz qual driver usar (PostgreSQL).
+
+hibernate.connection.url: o endereço do banco (localhost e porta padrão 5432).
+
+hibernate.connection.username e password: usuário e senha do PostgreSQL.
+
+hibernate.dialect: ensina ao Hibernate como gerar SQL compatível com PostgreSQL.
+
+hibernate.hbm2ddl.auto: controla criação/atualização das tabelas.
+
+update = atualiza tabelas sem apagar dados.
+
+create = cria tabelas do zero (apaga dados antigos).
+
+hibernate.show_sql: mostra os comandos SQL no console para depuração.
+
+<mapping class="..."/>: aqui você informa as classes Java que serão transformadas em tabelas.

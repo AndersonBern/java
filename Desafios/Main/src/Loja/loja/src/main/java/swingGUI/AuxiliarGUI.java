@@ -1,6 +1,7 @@
-package Loja.swingGUI;
+package swingGUI;
 
-import Loja.Estoque;
+import lojaConsole.Estoque;
+
 import javax.swing.*;
 
 
@@ -42,7 +43,7 @@ public class AuxiliarGUI {
 
     }
 
-    public static void listarProdutos(JTextArea areaTexto, Estoque estoque) {
+    public static void listarProdutos(JTextArea areaTexto, lojaConsole.Estoque estoque) {
         StringBuilder sb = new StringBuilder();
         estoque.getProdutos().forEach((id, produto) -> {
 

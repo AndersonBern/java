@@ -1,4 +1,8 @@
-package Loja;
+package lojaConsole;
+
+import br.com.loja.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -17,13 +21,33 @@ public class Loja {
     private static HashMap<Integer, Produto> produtos;
     private static Persistencia persistencia;
 
-    private static final String MSG_VENDA_SUCESSO = "Produto VENDIDO com sucesso!";
-    private static final String MSG_VENDA_FALHA = "Venda não concluida! Estoque INSUFICIENTE ou produto não ENCONTRADO!";
-    private static final String MSG_REPOR_SUCESSO = "Produto REPOSTO com sucesso!";
+    private static final String MSG_VENDA_SUCESSO = "lojaConsole.Produto VENDIDO com sucesso!";
+    private static final String MSG_VENDA_FALHA = "Venda não concluida! lojaConsole.Estoque INSUFICIENTE ou produto não ENCONTRADO!";
+    private static final String MSG_REPOR_SUCESSO = "lojaConsole.Produto REPOSTO com sucesso!";
     private static final String MSG_REPOR_FALHA = "Reposição não concluida! QUANTIDADE inválida ou produto não ENCONTRADO!";
     private static final String MSG_OPCAO = "Digite uma opção: ";
 
     public static void main(String[] args){
+
+        // Abre uma sessão
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        // Inicia uma transação
+        Transaction tx = session.beginTransaction();
+
+        // Cria um produto
+        Produto p = estoque.adicionar("caneta", 6, 2.4);
+
+        // Salva o produto no banco
+        session.persist(p);
+
+        // Comita a transação
+        tx.commit();
+
+        // Fecha a sessão
+        session.close();
+
+        System.out.println("lojaConsole.Produto salvo com sucesso!");
 
         persistencia = new Persistencia(null, "produtos.json"); // cria persistencia com caminho
         LinkedHashMap<Integer, Produto> produtosCarregados = persistencia.carregar(); // lê do arquivo
@@ -58,14 +82,13 @@ public class Loja {
                     double preco = Leitura.lerDouble(sc, "Digite o PREÇO do produto: ");
 
                     Produto novo = estoque.adicionar(nome, quantidade, preco);
-                    System.out.println("Produto: " + novo.getNome() + " foi adicionado ao estoque!");
+                    System.out.println("lojaConsole.Produto: " + novo.getNome() + " foi adicionado ao estoque!");
 
                     break;
 
                 case OPCAO_VENDER:
 
                     auxiliar("vender");
-                    persistencia.salvar();
                     break;
 
                 case OPCAO_REPOR:
@@ -74,17 +97,13 @@ public class Loja {
                     break;
 
                 case OPCAO_ESTOQUE:
-                    System.out.println("*********************** Estoque de produtos *********************** ");
+                    System.out.println("*********************** lojaConsole.Estoque de produtos *********************** ");
 
                     listarProdutos(false);
 
                     break;
 
                 case OPCAO_SALVAR:
-
-                    estoque.adicionar("café", 1, 15.9);
-                    estoque.adicionar("bolo", 2, 6.9);
-                    estoque.adicionar("ovo", 3, 13.8);
 
                     produtos = estoque.getProdutos();
 
@@ -105,9 +124,9 @@ public class Loja {
 
     public static void mostrarMenu() {
         separador();
-        System.out.println("[ 1 ] Adicionar Produto");
-        System.out.println("[ 2 ] Vender Produto");
-        System.out.println("[ 3 ] Repor Produto");
+        System.out.println("[ 1 ] Adicionar lojaConsole.Produto");
+        System.out.println("[ 2 ] Vender lojaConsole.Produto");
+        System.out.println("[ 3 ] Repor lojaConsole.Produto");
         System.out.println("[ 4 ] Listar Produtos");
         System.out.println("[ 5 ] SALVAR alterações");
     }

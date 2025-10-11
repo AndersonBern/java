@@ -1,4 +1,4 @@
-package Loja;
+package lojaConsole;
 
 import java.util.*;
 
@@ -21,7 +21,7 @@ public class Estoque {
             nextId = 1; // caso o mapa esteja vazio
         }
 
-        Produto produto = new Produto(nome, quantidade, preco);
+        Produto produto = new Produto(nextId, nome, quantidade, preco);
         produtos.put(nextId, produto);
         nextId++;
         return produto;

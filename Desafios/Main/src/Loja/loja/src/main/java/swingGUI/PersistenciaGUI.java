@@ -1,6 +1,6 @@
-package Loja.swingGUI;
+package swingGUI;
 
-import Loja.Produto;
+import lojaConsole.Produto;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 public class PersistenciaGUI {
 
     public Gson gson = new Gson();
-    public HashMap<Integer, Produto> produtos;
+    public HashMap<Integer, lojaConsole.Produto> produtos;
     public String caminho;
     public JFrame frame;
 
@@ -29,7 +29,6 @@ public class PersistenciaGUI {
         try(FileWriter writer = new FileWriter(caminho)) {
             gson.toJson(produtos, writer);
             writer.flush();
-            JOptionPane.showMessageDialog(frame,"Alterações SALVAS com sucesso!");
         }
         catch (IOException e){
             JOptionPane.showMessageDialog(frame,"Arquivo não salvo!");
@@ -37,7 +36,7 @@ public class PersistenciaGUI {
     }
 
     public LinkedHashMap<Integer, Produto> carregar() {
-        Type tipo = new TypeToken<LinkedHashMap<Integer, Produto>>() {}.getType();
+        Type tipo = new TypeToken<LinkedHashMap<Integer, lojaConsole.Produto>>() {}.getType();
 
         try(FileReader reader = new FileReader(caminho)) {
             return gson.fromJson(reader, tipo);

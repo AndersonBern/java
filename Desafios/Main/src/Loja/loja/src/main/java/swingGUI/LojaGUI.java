@@ -1,14 +1,15 @@
-package Loja.swingGUI;
+package swingGUI;
 
-import Loja.Estoque;
-import Loja.Persistencia;
-import Loja.Produto;
+import lojaConsole.Estoque;
+import lojaConsole.Produto;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
+import java.util.List;
 
-import static Loja.swingGUI.AuxiliarGUI.auxiliar;
+import static swingGUI.AuxiliarGUI.auxiliar;
 
 public class LojaGUI {
     public static void main(String[] args){
@@ -67,9 +68,27 @@ public class LojaGUI {
 
 
         Estoque estoque = new Estoque(); //Cria a instância do estoque
-        PersistenciaGUI persistencia = new PersistenciaGUI(estoque.getProdutos(), "./produtos.json", frame); //cria persistencia com caminho
-        LinkedHashMap<Integer, Produto> produtosCarregados = persistencia.carregar(); //lê do arquivo
-        estoque.setProdutos(produtosCarregados); //Adiciona o estoque atualizado
+
+
+        //Carrega os dados do BANCO DE DADOS
+        List<Produto> produtosDB = PersistenciaDB.carregarDB();
+
+        //SE a lista estiver vazia, carrega os dados do Json
+        if(produtosDB.isEmpty()) {
+            PersistenciaGUI persistencia = new PersistenciaGUI(estoque.getProdutos(), "./produtos.json", frame); //cria persistencia com caminho
+            LinkedHashMap<Integer, Produto> produtosJson = persistencia.carregar(); //lê do arquivo
+            estoque.setProdutos(produtosJson); //Adiciona o estoque atualizado
+        }
+        //SE NÃO converte a lista em LinkedHashMap
+        else {
+            LinkedHashMap<Integer, Produto> produtosCarregados = new LinkedHashMap<>();
+
+            produtosDB.forEach(p -> produtosCarregados.put(p.getId(), p));
+            estoque.setProdutos(produtosCarregados); //Adiciona o estoque atualizado
+        }
+
+
+
 
         //Qaundo clicar no botão "Adicionar", adiciona o produto
         botaoAdicionar.addActionListener(e -> {
@@ -96,13 +115,20 @@ public class LojaGUI {
             atualizarArea(areaTexto, estoque);
         });
 
-        //Quando clicar no botão "Estoque", aparece o estoque
+        //Quando clicar no botão "lojaConsole.Estoque", aparece o estoque
         botaoListar.addActionListener(e -> atualizarArea(areaTexto, estoque));
 
         //Quando clicar no botão "Salvar", salva as alterações
         botaoSalvar.addActionListener(e -> {
+            //Salva no Banco
+            PersistenciaDB.salvarTodos(estoque.getProdutos().values());
+
+            //Salva no Json
             PersistenciaGUI persistenciaSalvar = new PersistenciaGUI(estoque.getProdutos(), "./produtos.json", frame);
             persistenciaSalvar.salvar();
+
+            JOptionPane.showMessageDialog(frame, "Alterações salvas com sucesso no banco e no JSON!");
+
         });
 
     }
@@ -129,8 +155,9 @@ public class LojaGUI {
 
         sb.append("Valor TOTAL do estoque: ").append(String.format("%.2f", total)).append(" R$");
 
-        //Atualiza a areaTexto com a String que criamos do Produto
+        //Atualiza a areaTexto com a String que criamos do lojaConsole.Produto
         areaTexto.setText(sb.toString());
+
     }
 
 }

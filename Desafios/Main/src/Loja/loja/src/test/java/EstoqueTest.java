@@ -1,6 +1,4 @@
-package Loja.test;
-
-import Loja.Estoque;
+import lojaConsole.Estoque;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

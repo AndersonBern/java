@@ -1,6 +1,5 @@
-package Loja;
+package lojaConsole;
 
-import javax.swing.*;
 import java.util.Scanner;
 
 public class Leitura {

@@ -1,6 +1,4 @@
-package Loja.swingGUI;
-
-import Loja.Estoque;
+package swingGUI;
 
 import javax.swing.*;
 
@@ -12,7 +10,7 @@ public class LeituraGUI {
 
             String nome = JOptionPane.showInputDialog(frame, "Digite o NOME do produto: ");
 
-            if(nome == null || nome.trim().isEmpty()) {
+            if(nome == null || nome.trim().isEmpty() || nome.matches(".*\\d.*")) {
                 JOptionPane.showMessageDialog(frame, "Digite um nome válido!");
             }
             else{
